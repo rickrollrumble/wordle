@@ -1,15 +1,15 @@
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {Text, View} from 'react-native';
-import {styles} from '../styles';
+import {Game} from './Game';
+import {Splash} from './Splash';
+
+const Stack = createNativeStackNavigator();
+
 export const Home = () => {
   return (
-    <View>
-      <Text style={styles.title}>Welcome to</Text>
-      <Text style={[styles.title, styles.emphasisTitle]}>Wordle!</Text>
-      <Text style={[styles.title, styles.button]}>Play</Text>
-      {/* {words.map((word, index) => (
-        <Text key={index}>{word}</Text>
-      ))} */}
-    </View>
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name={'Home'} component={Splash} />
+      <Stack.Screen name={'Game'} component={Game} />
+    </Stack.Navigator>
   );
 };
