@@ -5,9 +5,9 @@
  * @format
  */
 
-import {NavigationContainer} from '@react-navigation/native';
-import React from 'react';
-import {Home} from './src/components/Home';
+import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
+import { Home } from "./src/components/Home";
 
 function App(): React.JSX.Element {
   return (

@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {TextInput, View} from 'react-native';
-import {styles} from '../styles';
+import React, { useState } from "react";
+import { TextInput, View } from "react-native";
+import { styles } from "../styles";
 
 export function Game(): React.JSX.Element {
-  const [grid] = useState(Array(6).fill(Array(5).fill('')));
+  const [grid] = useState(Array(6).fill(Array(5).fill("")));
 
   return (
     <View style={styles.container}>
