@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   cell: {
     height: height / 20,
-    width: width / 2,
+    width: width / 10,
     borderWidth: 1,
     borderColor: "#000",
     textAlign: "center",
@@ -37,6 +37,18 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
+  keyboardRow: {
+    flexDirection: 'row',
+    marginBottom: 5,
+    justifyContent:"center"
+  },
+  keyboardKey: {
+    width:width/12,
+    margin:3,
+    paddingVertical:5,
+    backgroundColor:"#4d4d4d",
+    borderRadius:2,
+  }
 });
 
 export { height, styles };

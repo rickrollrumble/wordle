@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { TextInput, View } from "react-native";
+import { View } from "react-native";
 import { styles } from "../styles";
+import { Keyboard } from "./Keyboard";
 
 export function Game(): React.JSX.Element {
   const [grid] = useState(Array(6).fill(Array(5).fill("")));
@@ -8,8 +9,13 @@ export function Game(): React.JSX.Element {
   return (
     <View style={styles.container}>
       {grid.map((row, rowIndex) => (
-        <TextInput key={rowIndex} style={styles.cell} maxLength={5} />
+        <View key={"row-" + rowIndex} style={styles.keyboardRow}>
+          {row.map((col: any, colIndex: any) => (
+            <View key={`row-${rowIndex}-col-${colIndex}`} style={styles.cell} />
+          ))}
+        </View>
       ))}
+      <Keyboard />
     </View>
   );
 }
