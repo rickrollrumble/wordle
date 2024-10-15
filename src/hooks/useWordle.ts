@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 const useWordle = (solution: string | any) => {
-  const [turn, setTurn] = useState(0);
-  const [currentGuess, setCurrentGuess] = useState("");
-  const [guesses, setGuesses] = useState([]);
-  const [history, setHistory] = useState(["hello"]);
-  const [isCorrect, setIsCorrect] = useState(false);
+  const [turn, setTurn] = useState<number>(0);
+  const [currentGuess, setCurrentGuess] = useState<string>("");
+  const [guesses, setGuesses] = useState([...Array(6)]); // max of only 6 and starts with each as undefined value
+  const [history, setHistory] = useState<string[]>([]);
+  const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
   // format a guess into an array of letter objects
   // [{key: "a", color:"yellow"}] for example
@@ -25,7 +25,7 @@ const useWordle = (solution: string | any) => {
     });
 
     formattedGuess.forEach((letter, i) => {
-      if (solutionArray[i].includes(letter.key) && letter.color !== "green") {
+      if (solutionArray.includes(letter.key) && letter.color !== "green") {
         formattedGuess[i].color = "yellow";
         solutionArray[solutionArray.indexOf(letter.key)] = null;
       }
@@ -35,8 +35,26 @@ const useWordle = (solution: string | any) => {
 
   // add a new guess to the guesses state
   // update the isCorrect state if the guess is correct and increment turn state
-  const addNewGuess = () => {};
+  const addNewGuess = (formattedGuess: any[]) => {
+    if (currentGuess === solution) {
+      setIsCorrect(true)
+    }
 
+    setGuesses((prevGuesses) => {
+      let newGuesses = [...prevGuesses]
+      // 6 undefined in the beginning
+      newGuesses[turn] = formattedGuess
+      return newGuesses
+    })
+
+    setHistory((prevHistory:any[]):any =>{
+      return [...prevHistory, currentGuess]
+    });
+
+    setTurn(prevTurn=> prevTurn + 1)
+
+    setCurrentGuess("")
+  }
   // handle keyup event and track current guess
   // if user types letter, handle it and store in some state.
   // if user presses enter, add the new guess to guesses state
@@ -60,9 +78,10 @@ const useWordle = (solution: string | any) => {
       }
 
       const formatted = formatGuess();
-      console.log(formatted);
+      addNewGuess(formatted)
     }
 
+    if (key === "Backspace") {
     if (key === "Backspace") {
       setCurrentGuess((prev) => {
         return prev.slice(0, -1);
@@ -71,9 +90,7 @@ const useWordle = (solution: string | any) => {
 
     if (/^[A-Za-z]$/.test(key)) {
       if (currentGuess.length < 5) {
-        setCurrentGuess((prev) => {
-          return prev + key;
-        });
+        setCurrentGuess((prev) => prev + key);
       }
     }
   };
